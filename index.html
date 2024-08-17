@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳳山高中學生會</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo-container">
+            <h1 id="鳳山高中學生會" class="logo">鳳山高中學生會</h1>
+            <span class="theme-toggle">🌓</span>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+            <nav class="main-nav">
+            <ul class="nav-list">
+                <li><a href="index.html" class="active">首頁</a></li>
+                <li><a href="about.html">關於我們</a></li>
+                <li><a href="departments.html">部門介紹</a></li>
+                <li><a href="events.html">活動資訊</a></li>
+                <li><a href="documents.html">公開文件</a></li>
+                <li><a href="contact.html">聯絡我們</a></li>
+            </ul>
+            </nav>
+        </div>
+        </header>
+
+    <main class="main-content" role="main">
+        <div class="container">
+            <section class="hero">
+                <h2 class="hero-title">歡迎來到鳳山高中學生會</h2>
+                <p class="hero-subtitle">為學生服務，為校園發聲</p>
+            </section>
+
+            <section class="announcements">
+                <h2>最新公告</h2>
+                <div class="announcement-carousel">
+                    <div id="announcementWrapper" class="announcement-wrapper">
+                        <!-- 公告內容將由JavaScript動態添加 -->
+                    </div>
+                </div>
+                <div class="announcement-nav">
+                    <button class="announcement-nav-btn prev" aria-label="前一則公告">❮</button>
+                    <button class="announcement-nav-btn next" aria-label="下一則公告">❯</button>
+                </div>
+            </section>
+
+            <section class="info-grid">
+                <div class="box accent-green">
+                    <div class="box-header">39屆學生會</div>
+                    <div class="box-content">致力服務全校學生</div>
+                </div>
+                <div class="box image-box">
+                    <img src="/api/placeholder/600/400" alt="學生會活動照片" loading="lazy">
+                    <div class="overlay-text">
+                        <div class="box-header">學生權益，由我們守護</div>
+                        <div class="box-content">我們致力於為學生創造更好的校園生活</div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-header">學生會組織</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>資訊組</li>
+                            <li>美宣組</li>
+                            <li>活動組</li>
+                            <li>學權組</li>
+                            <li>總務組</li>
+                            <li>公關組</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box accent-orange">
+                    <div class="box-header">18k+</div>
+                    <div class="box-content">參與學生會活動的同學</div>
+                </div>
+                <div class="box">
+                    <div class="box-header">聯絡我們</div>
+                    <div class="box-content">
+                        <p>Email:fssh_fssa@fssh.khc.edu.tw</p>
+                        <p>會辦：社會視聽館三樓(但那通常沒有人)</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-header">近期活動</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>迎新影片</li>
+                            <li>籃球比賽</li>
+                            <li>耶晚</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box accent-blue">
+                    <div class="box-header">公開文件</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>學生會章程</li>
+                            <li>會議記錄</li>
+                            <li>財務報表</li>
+                            <li>活動紀錄</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-header">學生福利</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>沒甚麼福利</li>
+                            <li>關東煮</li>
+                            <li>櫃子換新了</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            © 2024 鳳山高中學生會. 版權所有.
+        </div>
+    </footer>
+
+    <div id="cuteElement" class="cute-element" aria-label="互動元素">🐾</div>
+
+    <div id="announcementModal" class="modal">
+        <div class="modal-content">
+            <!-- 模態框內容將由JavaScript動態添加 -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

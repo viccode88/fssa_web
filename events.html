@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="events.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活動資訊 - 鳳山高中學生會</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo-container">
+            <h1 id="鳳山高中學生會" class="logo">鳳山高中學生會</h1>
+            <span class="theme-toggle">🌓</span>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+            <nav class="main-nav">
+            <ul class="nav-list">
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="about.html" ">關於我們</a></li>
+                <li><a href="departments.html">部門介紹</a></li>
+                <li><a href="events.html"class="active">活動資訊</a></li>
+                <li><a href="documents.html">公開文件</a></li>
+                <li><a href="contact.html">聯絡我們</a></li>
+            </ul>
+            </nav>
+        </div>
+        </header>
+
+    <main class="main-content" role="main">
+        <section class="section events-hero">
+            <div class="container">
+                <h1>活動資訊</h1>
+                <p>參與精彩活動，豐富你的校園生活</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="events-filter">
+                <button class="filter-btn active" data-filter="all">全部活動</button>
+                <button class="filter-btn" data-filter="upcoming">即將舉行</button>
+                <button class="filter-btn" data-filter="past">歷史活動</button>
+            </div>
+
+            <div id="events-container" class="events-container">
+                <!-- 活動卡片將在這裡動態生成 -->
+            </div>
+        </div>
+    </main>
+
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="eventDetails"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+            <div class="container">
+                © 2024 鳳山高中學生會. 版權所有.
+            </div>
+        </footer>
+    
+        <div id="cuteElement" class="cute-element" aria-label="互動元素">
+            🐾
+        </div>
+    
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const eventsContainer = document.getElementById('events-container');
+                const modal = document.getElementById('eventModal');
+                const modalContent = document.querySelector('.modal-content');
+                const closeModal = document.querySelector('.close-modal');
+                const eventDetails = document.getElementById('eventDetails');
+                const themeToggle = document.querySelector('.theme-toggle');
+                const body = document.body;
+    
+                // 主題切換功能
+                function setTheme(theme) {
+                    if (theme === 'dark') {
+                        body.classList.remove('light-theme');
+                        body.classList.add('dark-theme');
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        body.classList.remove('dark-theme');
+                        body.classList.add('light-theme');
+                        localStorage.setItem('theme', 'light');
+                    }
+                }
+    
+                const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                setTheme(savedTheme);
+    
+                themeToggle.addEventListener('click', () => {
+                    const currentTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
+                    setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+                });
+    
+                // 從API獲取活動數據
+                async function fetchEvents() {
+                    try {
+                        const response = await fetch('https://fssa-event.vic0407lu.workers.dev/api/events');
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        const events = await response.json();
+                        displayEvents(events);
+                    } catch (error) {
+                        console.error('獲取活動時出錯:', error);
+                        eventsContainer.innerHTML = '<p class="error-message">無法載入活動資訊，請稍後再試。</p>';
+                    }
+                }
+    
+                // 顯示活動卡片
+                function displayEvents(events) {
+                    eventsContainer.innerHTML = '';
+                    const currentDate = new Date();
+                    
+                    events.forEach(event => {
+                        const startDate = new Date(event.startDate);
+                        const category = startDate > currentDate ? 'upcoming' : 'past';
+                        
+                        const eventCard = document.createElement('div');
+                        eventCard.className = `event-card ${category}`;
+                        eventCard.innerHTML = `
+                            <div class="event-content">
+                                <h2 class="event-title">${event.title}</h2>
+                                <p>${event.summary}</p>
+                                <p>${formatDate(startDate)}</p>
+                                <button class="event-link" data-id="${event.id}">了解更多</button>
+                            </div>
+                        `;
+                        eventsContainer.appendChild(eventCard);
+                    });
+    
+                    // 為每個"了解更多"按鈕添加點擊事件
+                    document.querySelectorAll('.event-link').forEach(button => {
+                        button.addEventListener('click', () => openModal(events.find(e => e.id === parseInt(button.dataset.id))));
+                    });
+                }
+    
+                // 打開模態框
+                function openModal(event) {
+                    eventDetails.innerHTML = `
+                        <h2>${event.title}</h2>
+                        <p><strong>日期:</strong> ${formatDate(new Date(event.startDate))} - ${formatDate(new Date(event.endDate))}</p>
+                        <p>${event.description}</p>
+                        ${event.images.length ? '<h3>圖片</h3><div class="event-images">' + event.images.map(img => `<img src="${img}" alt="活動圖片">`).join('') + '</div>' : ''}
+                        ${event.attachments.length ? '<h3>附件</h3><ul>' + event.attachments.map(att => `<li><a href="${att.url}" target="_blank">${att.name}</a></li>`).join('') + '</ul>' : ''}
+                        ${event.links.length ? '<h3>相關連結</h3><ul>' + event.links.map(link => `<li><a href="${link.url}" target="_blank">${link.name}</a></li>`).join('') + '</ul>' : ''}
+                    `;
+                    modal.classList.add('active');
+                }
+    
+                // 關閉模態框
+                closeModal.addEventListener('click', () => modal.classList.remove('active'));
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) modal.classList.remove('active');
+                });
+    
+                // 格式化日期
+                function formatDate(date) {
+                    return date.toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' });
+                }
+    
+                // 過濾功能
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelector('.filter-btn.active').classList.remove('active');
+                        btn.classList.add('active');
+                        const filter = btn.dataset.filter;
+                        document.querySelectorAll('.event-card').forEach(card => {
+                            if (filter === 'all' || card.classList.contains(filter)) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+                // 移動端選單切換
+                const menuToggle = document.querySelector('.menu-toggle');
+                const navList = document.querySelector('.nav-list');
+                
+                if (menuToggle && navList) {
+                    menuToggle.addEventListener('click', () => {
+                        navList.classList.toggle('active');
+                        const isExpanded = navList.classList.contains('active');
+                        menuToggle.setAttribute('aria-expanded', isExpanded);
+                    });
+                }
+                // 可愛元素點擊效果
+                const cuteElement = document.getElementById('cuteElement');
+                const emojis = ['🐾', '🎓', '📚', '🖋️', '🍎'];
+                let currentEmojiIndex = 0;
+                cuteElement.addEventListener('click', () => {
+                    currentEmojiIndex = (currentEmojiIndex + 1) % emojis.length;
+                    cuteElement.textContent = emojis[currentEmojiIndex];
+                    cuteElement.style.transform = 'scale(1.2) rotate(10deg)';
+                    setTimeout(() => {
+                        cuteElement.style.transform = 'scale(1) rotate(0deg)';
+                    }, 300);
+                });
+    
+                // 獲取並顯示活動
+                fetchEvents();
+            });
+        </script>
+    </body>
+    </html>

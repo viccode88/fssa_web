@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="contact.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聯絡我們 - 鳳山高中學生會</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo-container">
+            <h1 id="鳳山高中學生會" class="logo">鳳山高中學生會</h1>
+            <span class="theme-toggle">🌓</span>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+            <nav class="main-nav">
+            <ul class="nav-list">
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="about.html" ">關於我們</a></li>
+                <li><a href="departments.html">部門介紹</a></li>
+                <li><a href="events.html">活動資訊</a></li>
+                <li><a href="documents.html ">公開文件</a></li>
+                <li><a href="contact.html" class="active">聯絡我們</a></li>
+            </ul>
+            </nav>
+        </div>
+        </header>
+
+    <main class="main-content">
+        <section class="contact-hero">
+            <div class="container">
+                <h1>聯絡我們</h1>
+                <p>我們隨時傾聽您的聲音</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>聯絡資訊</h2>
+                    <p>如果您有任何問題或建議，歡迎聯絡我們：</p>
+                    <p><strong>電子郵件：</strong><br><a href="mailto:fssh_fssa@fssh.khc.edu.tw">fssh_fssa@fssh.khc.edu.tw</a></p>
+                    <p><strong>辦公室地點：</strong><br>行政大樓2樓205室</p>
+                    <p><strong>辦公時間：</strong><br>週一至週五 12:00-13:30</p>
+                </div>
+                <div class="contact-form">
+                    <h2>聯絡表單</h2>
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfbx__RISaVvD6JgJ_slxyVTyUCnHVyWmBa--YnASMvfC_kbQ/viewform?embedded=true" width="640" height="1487" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 鳳山高中學生會. 版權所有.</p>
+        </div>
+    </footer>
+
+    <div id="cuteElement" class="cute-element" aria-label="互動元素">
+        🐾
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.querySelector('.theme-toggle');
+            const body = document.body;
+            
+            function setTheme(theme) {
+                if (theme === 'light') {
+                    body.classList.add('light-theme');
+                } else {
+                    body.classList.remove('light-theme');
+                }
+                localStorage.setItem('theme', theme);
+            }
+
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            setTheme(savedTheme);
+
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = body.classList.contains('light-theme') ? 'light' : 'dark';
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+            // 移動端選單切換
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navList = document.querySelector('.nav-list');
+
+            if (menuToggle && navList) {
+                menuToggle.addEventListener('click', () => {
+                    navList.classList.toggle('active');
+                    const isExpanded = navList.classList.contains('active');
+                    menuToggle.setAttribute('aria-expanded', isExpanded);
+                });
+            }
+
+            // 更新導航高亮
+            function updateActiveNavItem() {
+                const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+                document.querySelectorAll('.nav-list a').forEach(link => {
+                    if (link.getAttribute('href') === currentPath) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+            const cuteElement = document.getElementById('cuteElement');
+            const emojis = ['🐾', '🎓', '📚', '🖋️', '🍎'];
+            let currentEmojiIndex = 0;
+            cuteElement.addEventListener('click', () => {
+                currentEmojiIndex = (currentEmojiIndex + 1) % emojis.length;
+                cuteElement.textContent = emojis[currentEmojiIndex];
+                cuteElement.style.transform = 'scale(1.2) rotate(10deg)';
+                setTimeout(() => {
+                    cuteElement.style.transform = 'scale(1) rotate(0deg)';
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
