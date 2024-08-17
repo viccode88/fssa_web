@@ -420,8 +420,8 @@
                         <p>${doc.description}</p>
                         <div class="document-meta">
                             <span class="document-date">發布日期: ${new Date(doc.publishDate).toLocaleDateString()}</span>
-                            <span class="document-unit">製作單位: ${doc.creationUnit}</span>
-                            <span class="document-author">製作人: ${doc.createdBy}</span>
+                            <span class="document-unit">通過/製作單位: ${doc.creationUnit}</span>
+                            <span class="document-author">發布人: ${doc.createdBy}</span>
                         </div>
                         <div class="document-files">
                             ${doc.files.map(file => `
