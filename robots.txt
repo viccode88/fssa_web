@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://fssa-web.pages.dev/sitemap.xml
