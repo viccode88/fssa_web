@@ -15,7 +15,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    let savedTheme = localStorage.getItem('theme');
+    
+    // 如果沒有儲存的主題，且使用者偏好深色模式，則預設為深色
+    if (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      savedTheme = 'dark';
+    }
+    
+    // 如果仍然沒有儲存的主題，則預設為深色
+    if (!savedTheme) {
+      savedTheme = 'dark'; 
+    }
+    
     setTheme(savedTheme);
 
     themeToggle.addEventListener('click', () => {
