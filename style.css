@@ -360,7 +360,7 @@ body {
     background-color: rgba(46, 52, 64, 0.8);
     color: white;
     padding: 15px;
-    transform: translateY(100%);
+    /*transform: translateY(100%);*/
     transition: transform 0.3s ease;
 }
 
