@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', updateActiveNavItem);
             displayAnnouncements(announcements);
         } catch (error) {
             console.error('獲取公告時出錯:', error);
-            displayError('無法載入公告，請稍後再試。');
+            displayError('無法載入公告,請稍後再試。');
         }
     }
     
@@ -116,9 +116,13 @@ document.addEventListener('DOMContentLoaded', updateActiveNavItem);
         announcements.forEach((announcement, index) => {
             const announcementItem = document.createElement('div');
             announcementItem.classList.add('announcement-item');
+            
+            // 將公告內容中的換行符號替換為<br>
+            const formattedContent = announcement.content.replace(/\n/g, '<br>');
+            
             announcementItem.innerHTML = `
                 <h3>${announcement.title}</h3>
-                <p>${announcement.content.substring(0, 100)}${announcement.content.length > 100 ? '...' : ''}</p>
+                <p>${formattedContent.substring(0, 100)}${formattedContent.length > 100 ? '...' : ''}</p>
                 <small>${new Date(announcement.date).toLocaleDateString()}</small>
                 <div class="announcement-preview">
                     ${announcement.images && announcement.images.length ? `<span class="preview-icon"><i class="fas fa-image"></i> ${announcement.images.length}</span>` : ''}
@@ -172,12 +176,15 @@ document.addEventListener('DOMContentLoaded', updateActiveNavItem);
         const modalContent = modal.querySelector('.modal-content');
         const announcement = announcements[index];
         
+        // 將公告內容中的換行符號替換為<br>
+        const formattedContent = announcement.content.replace(/\n/g, '<br>');
+        
         modalContent.innerHTML = `
             <span class="close-modal">&times;</span>
             <h2>${announcement.title}</h2>
             <small>${new Date(announcement.date).toLocaleDateString()}</small>
             <div class="modal-body">
-                <p>${announcement.content}</p>
+                <p>${formattedContent}</p>
                 <div id="modalImageGallery" class="modal-image-gallery"></div>
                 <div id="modalAttachments" class="modal-attachments"></div>
             </div>
