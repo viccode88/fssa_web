@@ -8,6 +8,256 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary-color: #81a1c1;
+            --secondary-color: #88c0d0;
+            --accent-color: #ebcb8b;
+            --background-color: #2e3440;
+            --text-color: #eceff4;
+            --header-bg: rgba(46, 52, 64, 0.95);
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            --box-bg: #3b4252;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .header {
+            background-color: var(--header-bg);
+            box-shadow: var(--box-shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 15px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            margin: 0;
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .theme-toggle {
+            margin-left: 1rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-color);
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-list li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-list a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-list a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .nav-list a:hover::after,
+        .nav-list a.active::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #4c566a, #3b4252);
+            color: #ffffff;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .announcements {
+            background-color: var(--box-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .announcements h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .box {
+            background-color: var(--box-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .box-header {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .accent-green { background-color: #a3be8c; color: var(--background-color); }
+        .accent-orange { background-color: #d08770; color: var(--background-color); }
+        .accent-blue { background-color: #5e81ac; color: var(--background-color); }
+
+        .image-box {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .image-box:hover img {
+            transform: scale(1.05);
+        }
+
+        .overlay-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(46, 52, 64, 0.8);
+            color: white;
+            padding: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .image-box:hover .overlay-text {
+            transform: translateY(0);
+        }
+
+        .footer {
+            background-color: var(--header-bg);
+            color: var(--text-color);
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+
+        .cute-element {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1000;
+            transition: var(--transition);
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--box-shadow);
+        }
+
+        .cute-element:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -51,88 +301,72 @@
             </section>
 
             <section class="info-grid">
-                <a href="about.html" class="box-link">
-                    <div class="box accent-green">
-                        <div class="box-header">34屆學生會</div>
-                        <div class="box-content">致力服務全校學生</div>
+                <div class="box accent-green box-link" onclick="window.location.href='about.html'">
+                    <div class="box-header">34屆學生會</div>
+                    <div class="box-content">致力服務全校學生</div>
+                </div>
+                <div class="box image-box box-link" onclick="window.location.href='events.html'">
+                    <img src="fssa.jpg" alt="鳳中學生會活動照片" loading="lazy">
+                    <div class="overlay-text">
+                        <div class="box-header">學生權益，由我們守護</div>
+                        <div class="box-content">我們致力於為學生創造更好的校園生活</div>
                     </div>
-                </a>
-                <a href="events.html" class="box-link">
-                    <div class="box image-box">
-                        <img src="fssa.jpg" alt="鳳中學生會活動照片" loading="lazy">
-                        <div class="overlay-text">
-                            <div class="box-header">學生權益，由我們守護</div>
-                            <div class="box-content">我們致力於為學生創造更好的校園生活</div>
-                        </div>
+                </div>
+                <div class="box box-link" onclick="window.location.href='departments.html'">
+                    <div class="box-header">學生會組織</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>資訊組</li>
+                            <li>美宣組</li>
+                            <li>活動組</li>
+                            <li>學權組</li>
+                            <li>總務組</li>
+                            <li>公關組</li>
+                        </ul>
                     </div>
-                </a>
-                <a href="departments.html" class="box-link">
-                    <div class="box">
-                        <div class="box-header">學生會組織</div>
-                        <div class="box-content">
-                            <ul>
-                                <li>資訊組</li>
-                                <li>美宣組</li>
-                                <li>活動組</li>
-                                <li>學權組</li>
-                                <li>總務組</li>
-                                <li>公關組</li>
-                            </ul>
-                        </div>
+                </div>
+                <div class="box accent-orange box-link" onclick="window.location.href='statistics.html'">
+                    <div class="box-header">18k+</div>
+                    <div class="box-content">參與學生會活動的同學</div>
+                </div>
+                <div class="box box-link" onclick="window.location.href='contact.html'">
+                    <div class="box-header">聯絡我們</div>
+                    <div class="box-content">
+                        <p>Email: fssh_fssa@fssh.khc.edu.tw</p>
+                        <p>會辦：社會視聽館三樓(但那通常沒有人)</p>
                     </div>
-                </a>
-                <a href="statistics.html" class="box-link">
-                    <div class="box accent-orange">
-                        <div class="box-header">18k+</div>
-                        <div class="box-content">參與學生會活動的同學</div>
+                </div>
+                <div class="box box-link" onclick="window.location.href='events.html'">
+                    <div class="box-header">近期活動</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>迎新影片</li>
+                            <li>籃球比賽</li>
+                            <li>耶晚</li>
+                        </ul>
                     </div>
-                </a>
-                <a href="contact.html" class="box-link">
-                    <div class="box">
-                        <div class="box-header">聯絡我們</div>
-                        <div class="box-content">
-                            <p>Email: fssh_fssa@fssh.khc.edu.tw</p>
-                            <p>會辦：社會視聽館三樓(但那通常沒有人)</p>
-                        </div>
+                </div>
+                <div class="box accent-blue box-link" onclick="window.location.href='https://fssa-web.pages.dev/documents'">
+                    <div class="box-header">公開文件</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>學生會章程</li>
+                            <li>會議記錄</li>
+                            <li>財務報表</li>
+                            <li>活動紀錄</li>
+                        </ul>
                     </div>
-                </a>
-                <a href="events.html" class="box-link">
-                    <div class="box">
-                        <div class="box-header">近期活動</div>
-                        <div class="box-content">
-                            <ul>
-                                <li>迎新影片</li>
-                                <li>籃球比賽</li>
-                                <li>耶晚</li>
-                            </ul>
-                        </div>
+                </div>
+                <div class="box box-link" onclick="window.location.href='welfare.html'">
+                    <div class="box-header">學生福利</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>沒甚麼福利</li>
+                            <li>關東煮</li>
+                            <li>櫃子換新了</li>
+                        </ul>
                     </div>
-                </a>
-                <a href="https://fssa-web.pages.dev/documents" class="box-link">
-                    <div class="box accent-blue">
-                        <div class="box-header">公開文件</div>
-                        <div class="box-content">
-                            <ul>
-                                <li>學生會章程</li>
-                                <li>會議記錄</li>
-                                <li>財務報表</li>
-                                <li>活動紀錄</li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
-                <a href="welfare.html" class="box-link">
-                    <div class="box">
-                        <div class="box-header">學生福利</div>
-                        <div class="box-content">
-                            <ul>
-                                <li>沒甚麼福利</li>
-                                <li>關東煮</li>
-                                <li>櫃子換新了</li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
+                </div>
             </section>
         </div>
     </main>
