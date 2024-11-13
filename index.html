@@ -257,6 +257,92 @@
         .cute-element:hover {
             transform: scale(1.1) rotate(10deg);
         }
+        @media (max-width: 768px) {
+    
+            .header .container {
+                flex-direction: row; /* 改為 row 以保持水平布局 */
+                justify-content: space-between; /* 在小屏幕上分散對齊 logo 和菜單按鈕 */
+                align-items: center;
+            }
+            .main-nav {
+                position: fixed;
+                top: 60px; /* 調整這個值以匹配 header 的高度 */
+                left: 0;
+                width: 100%;
+                background-color: var(--header-bg);
+                display: none;
+            }
+            .menu-toggle {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: var(--text-color);
+                cursor: pointer;
+            }
+            .nav-list {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .nav-list.active {
+                display: flex;
+                flex-direction: column;
+            }
+            .main-nav.active {
+                display: block;
+            }
+            .nav-list {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+            }
+        
+            .nav-list.active {
+                display: flex;
+            }
+        
+            .nav-list li {
+                margin: 0.5rem 0;
+            }
+        
+            .menu-toggle {
+                display: block;
+                align-self: flex-end;
+                margin-top: -2.5rem;
+            }
+        
+            .hero-title {
+                font-size: 2rem;
+            }
+        
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+        
+            .announcement-item h3 {
+                font-size: 1.1em;
+            }
+        
+            .announcement-item p {
+                font-size: 0.85em;
+            }
+        
+            .modal-content {
+                width: 95%;
+                padding: 15px;
+            }
+        
+            .cute-element, .scroll-top-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        
+            .scroll-top-btn {
+                right: 70px;
+            }
+        }
+        
     </style>
 </head>
 <body>
