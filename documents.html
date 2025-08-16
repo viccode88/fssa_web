@@ -237,29 +237,6 @@
             margin-top: 2rem;
         }
     
-        .cute-element {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 1000;
-            transition: var(--transition);
-            background-color: var(--accent-color);
-            color: var(--background-color);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--box-shadow);
-        }
-    
-        .cute-element:hover {
-            transform: scale(1.1) rotate(10deg);
-        }
-    
         body.light-theme {
             --primary-color: #5e81ac;
             --secondary-color: #81a1c1;
@@ -331,15 +308,15 @@
             <nav class="main-nav">
             <ul class="nav-list">
                 <li><a href="index.html">首頁</a></li>
-                <li><a href="about.html" ">關於我們</a></li>
+                <li><a href="about.html">關於我們</a></li>
                 <li><a href="departments.html">部門介紹</a></li>
                 <li><a href="events.html">活動資訊</a></li>
-                <li><a href="documents.html "class="active">公開文件</a></li>
+                <li><a href="documents.html" class="active">公開文件</a></li>
                 <li><a href="contact.html">聯絡我們</a></li>
             </ul>
             </nav>
         </div>
-        </header>
+    </header>
 
     <main class="main-content" role="main">
         <section class="section documents-hero">
@@ -368,10 +345,6 @@
             © 2024 鳳山高中學生會. 版權所有.
         </div>
     </footer>
-
-    <div id="cuteElement" class="cute-element" aria-label="互動元素">
-        🐾
-    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -402,7 +375,7 @@
             });
 
             // 從 worker 獲取文件
-            fetch('https://fssa-documents.vic0407lu.workers.dev/api/documents')
+            fetch('https://fssa.vic0407lu.workers.dev/api/documents')
                 .then(response => response.json())
                 .then(documents => {
                     displayDocuments(documents);
@@ -453,6 +426,7 @@
                 filterButtons.forEach(button => button.classList.remove('active'));
                 clickedButton.classList.add('active');
             }
+
             // 移動端選單切換
             const menuToggle = document.querySelector('.menu-toggle');
             const navList = document.querySelector('.nav-list');
@@ -476,18 +450,6 @@
                     }
                 });
             }
-            // 可愛元素點擊效果
-            const cuteElement = document.getElementById('cuteElement');
-            const emojis = ['🐾', '🎓', '📚', '🖋️', '🍎'];
-            let currentEmojiIndex = 0;
-            cuteElement.addEventListener('click', () => {
-                currentEmojiIndex = (currentEmojiIndex + 1) % emojis.length;
-                cuteElement.textContent = emojis[currentEmojiIndex];
-                cuteElement.style.transform = 'scale(1.2) rotate(10deg)';
-                setTimeout(() => {
-                    cuteElement.style.transform = 'scale(1) rotate(0deg)';
-                }, 300);
-            });
         });
     </script>
 </body>
